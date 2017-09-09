@@ -1,8 +1,8 @@
 const api = "http://localhost:5001"
 
 const headers = {
+    'Accept': 'application/json',
     'Authorization':'guillerg-readable'
-  }
 }
 
 export const getAllCategories = () =>
@@ -10,15 +10,15 @@ export const getAllCategories = () =>
     .then(res => res.json())
     .then(data => data.categories)
 
+export const getAllPosts = () =>
+  fetch(`${api}/posts`, { headers })
+    .then(res => res.json())
+    //.then(data => data.posts)
+
 export const getCategoryPosts = (categoryId) =>
   fetch(`${api}/${categoryId}/posts`, { headers })
       .then(res => res.json())
       .then(data => data.posts)
-
-export const getAllPosts = () =>
-  fetch(`${api}/posts`, { headers })
-    .then(res => res.json())
-    .then(data => data.posts)
 
 export const getPost = (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })

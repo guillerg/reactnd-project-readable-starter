@@ -4,40 +4,27 @@ import {
   LOAD_POSTS,
 } from '../actions'
 
-function categories( state={}, action){
+function categories( state = {}, action){
   switch (action.type) {
     case LOAD_CATEGORIES:
-
-      return state
+      const { categories } = action
+      return {
+      ...state,
+      categories,
+      }
     default:
       return state
   }
 }
 
-function posts (state = {}, action) {
-  const { day, recipe, meal } = action
-
+function posts ( state = {}, action ) {
   switch (action.type) {
     case LOAD_POSTS :
+      const { posts } = action
       return {
         ...state,
-        [day]: {
-          ...state[day],
-          [meal]: recipe.label,
+        posts,
         }
-      }
-
-    default :
-      return state
-  }
-}
-
-function comments (state = {}, action) {
-
-  switch (action.type) {
-    case LOAD_POSTS :
-      return state
-
     default :
       return state
   }
@@ -46,5 +33,4 @@ function comments (state = {}, action) {
 export default combineReducers({
   categories,
   posts,
-  comments
 })
