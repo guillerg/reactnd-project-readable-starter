@@ -15,6 +15,16 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 
+export const VOTE_POST = 'VOTE_POST'
+
+export function vote_post(postId, score){
+  return{
+    type:VOTE_POST,
+    postId,
+    score
+  }
+}
+
 export function load_categories(categories) {
   return {
     type: LOAD_CATEGORIES,

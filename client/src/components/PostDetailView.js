@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { load_comments } from '../actions'
 import * as api from '../util/api'
-//import { showDate } from '../utils/utils'
 import { Link } from 'react-router-dom'
 
 class Post extends Component {
@@ -13,43 +12,33 @@ class Post extends Component {
 
 	render() {
 
-    const {postsInfo, comments, postId} = this.props
+    const {posts, comments, postId} = this.props
 
-    let thePost = false
-    let theComments = false
+    let post = posts.find((post) => (post.id === postId))
+    let postComments = comments[postId]
 
-    if (postsInfo) {
-      thePost = postsInfo.find((post) => (post.id === postId))
-      console.log(thePost)
-    }
-
-    if (comments) {
-      theComments = comments[postId]
-      console.log('THE COMMENTS')
-      console.log(theComments)
-    }
 		return (
 			<div>
-          { thePost &&
+          { post &&
             <div className="container content" style={{marginTop: '25px', marginBottom: '50px'}}>
 
               <h1>
-                {thePost.title}
+                {post.title}
               </h1>
               <blockquote>
-                {thePost.body}
+                {post.body}
               </blockquote>
               <p>
-                posted by <strong>{thePost.author}</strong>,
+                posted by <strong>{post.author}</strong>,
                 &nbsp;
-                {thePost.timestamp}
+                {post.timestamp}
                 <br />
-                category: <Link to={'category/' + thePost.category}>{thePost.category}</Link>
+                category: <Link to={'category/' + post.category}>{post.category}</Link>
               </p>
 
-              { theComments &&
+              { postComments &&
                 <div>
-                  {theComments.map( (comment, index) =>
+                  {postComments.map( (comment, index) =>
                     <p key={index}>
 
                       <div className="box">
@@ -88,7 +77,7 @@ class Post extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    postsInfo: state.posts.posts,
+    posts: state.posts.posts,
     comments: state.comments
   }
 }

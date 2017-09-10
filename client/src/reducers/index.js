@@ -2,7 +2,9 @@ import { combineReducers } from 'redux'
 import {
   LOAD_CATEGORIES,
   LOAD_POSTS,
-  ADD_COMMENT
+  LOAD_POST,
+  VOTE_POST,
+  LOAD_COMMENTS
 } from '../actions'
 
 function categories( state = {}, action){
@@ -26,6 +28,22 @@ function posts ( state = {}, action ) {
         ...state,
         posts,
         }
+    case LOAD_POST :
+      const { post } = action
+      return {
+        ...state,
+        [post.id]: post,
+      }
+    case VOTE_POST :
+      const { postId, score } = action
+      return {
+        ...state,
+        [postId]: {
+          ...state[postId],
+          voteScore: score
+        }
+      }
+
     default :
       return state
   }
@@ -33,7 +51,7 @@ function posts ( state = {}, action ) {
 
 function comments ( state = {}, action ) {
   switch (action.type) {
-    case ADD_COMMENT :
+    case LOAD_COMMENTS :
       const { postId, body } = action
       return {
         ...state,

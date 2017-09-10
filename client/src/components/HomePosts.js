@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { load_comments } from '../actions'
+import VoteScore  from './VoteScore'
 import * as api from '../util/api'
 
 class PostInList extends Component {
@@ -12,11 +13,22 @@ class PostInList extends Component {
 
 	render() {
 
-    const { post, comments } = this.props
+    const { post,comments } = this.props
+
+    let postComments = false
+        if (comments) {
+          postComments = comments[post.id]
+        }
+
 
 		return (
       <div className="box">
         <article className="media">
+          <div className="media-left">
+            <figure className="has-text-centered">
+              <VoteScore post={post} />
+            </figure>
+          </div>
           <div className="media-content">
             <div className="content">
               <p>
@@ -41,10 +53,10 @@ class PostInList extends Component {
                   <i className="fa fa-comment-o"></i>
                 </span>
                 &nbsp;
-                { comments ?
-                  ((comments.length === 1) ?
+                { postComments ?
+                  ((postComments.length === 1) ?
                       '1 comment'
-                      : comments.length + ' comments')
+                      : postComments.length + ' comments')
                   : ' 0 comments'
                 }
               </div>
@@ -58,7 +70,6 @@ class PostInList extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    postsInfo: state.posts.posts,
     comments: state.comments
   }
 }
