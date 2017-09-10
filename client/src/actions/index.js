@@ -1,12 +1,14 @@
 export const LOAD_CATEGORIES = 'LOAD_CATEGORIES'
 
 export const LOAD_POSTS = 'LOAD_POSTS'
+export const LOAD_POST = 'LOAD_POST'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPVOTE_POST = 'UPVOTE_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 
+export const LOAD_COMMENTS = 'LOAD_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
@@ -23,6 +25,12 @@ export function load_posts(posts) {
   return {
     type: LOAD_POSTS,
     posts
+  }
+}
+export function load_post(post) {
+  return {
+    type: LOAD_POST,
+    post
   }
 }
 export function add_post ({ id, timestamp, title, body, author, category, voteScore, deleted }) {
@@ -67,17 +75,11 @@ export function downvote_post ({ id, voteScore }) {
     voteScore
   }
 }
-export function add_comment ({ id, parentid, timestamp, body, author, voteScore, deleted, parentdeleted }) {
+export function load_comments (postId, comments) {
   return {
-    type: ADD_COMMENT,
-    id,
-    parentid,
-    timestamp,
-    body,
-    author,
-    voteScore,
-    deleted,
-    parentdeleted
+    type: LOAD_COMMENTS,
+    postId,
+    comments
   }
 }
 export function edit_comment ({ id, body }) {

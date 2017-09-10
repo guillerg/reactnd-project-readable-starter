@@ -28,7 +28,7 @@ export const getPost = (postId) =>
 export const getPostComments = (postId) =>
   fetch(`${api}/posts/${postId}`, { headers })
     .then(res => res.json())
-    .then(data => data.comment)
+    //.then(data => data.comment)
 
 export const getComment = (commentId) =>
   fetch(`${api}/comments/${commentId}`, { headers })
