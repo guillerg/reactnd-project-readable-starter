@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { load_comments } from '../actions'
 import * as api from '../util/api'
+import VoteScore from './VoteScore'
 import { Link } from 'react-router-dom'
 
 class Post extends Component {
@@ -13,53 +14,50 @@ class Post extends Component {
 	render() {
 
     const {posts, comments, postId} = this.props
+    const currentPost = posts ? posts.find((post) => (post.id === postId)) : false
+    const postComments = comments ? comments[postId] : false
 
-    let post = posts.find((post) => (post.id === postId))
-    let postComments = comments[postId]
 
 		return (
 			<div>
-          { post &&
+          { currentPost &&
             <div className="container content" style={{marginTop: '25px', marginBottom: '50px'}}>
 
               <h1>
-                {post.title}
+                {currentPost.title}
               </h1>
-              <blockquote>
-                {post.body}
-              </blockquote>
               <p>
-                posted by <strong>{post.author}</strong>,
+                {currentPost.body}
+              </p>
+              <p>
+                posted by <strong>{currentPost.author}</strong>,
                 &nbsp;
-                {post.timestamp}
+                {currentPost.timestamp}
                 <br />
-                category: <Link to={'category/' + post.category}>{post.category}</Link>
+                category: <Link to={'/category/' + currentPost.category}>{currentPost.category}</Link>
               </p>
 
               { postComments &&
                 <div>
                   {postComments.map( (comment, index) =>
                     <p key={index}>
-
                       <div className="box">
-                          <div className="media-content">
-                            <div className="content">
+                          <div>
+                            <div >
                               <p>
                                 <strong>{comment.author}</strong> <small>{comment.timestamp}</small>
                                 <br />
                                 {comment.body}
                               </p>
                             </div>
-                            <nav className="level is-mobile">
-                              <div className="level-left">
-                                <a className="level-item">
-                                  <span className="icon is-small"><i className="fa fa-edit"></i></span>
+                              <div>
+                                <a>
+                                  <span><i className="fa fa-edit"></i></span>
                                 </a>
-                                <a className="level-item">
-                                  <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+                                <a>
+                                  <span><i className="fa fa-trash-o"></i></span>
                                 </a>
                               </div>
-                            </nav>
                           </div>
                       </div>
 
@@ -77,7 +75,7 @@ class Post extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    posts: state.posts.posts,
+    posts: Object.keys(state.posts).map((key) => state.posts[key]),
     comments: state.comments
   }
 }

@@ -37,7 +37,6 @@ const { posts, sortMethod, update_sorting } = this.props
       <div className="container">
 									Sort By &nbsp;
         <div className="select right">
-
           <select value={sortMethod}
             onChange={ (event) => { update_sorting(event.target.value) } }>
             <option value="score">Top Score</option>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { vote_post } from '../actions'
 import * as api from '../util/api'
 
-class VoteScore extends Component {
+class Vote extends Component {
 	render() {
 
 		const { postId, posts, vote_post } = this.props
@@ -41,4 +41,4 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VoteScore)
+export default connect(mapStateToProps, mapDispatchToProps)(Vote)

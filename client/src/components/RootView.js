@@ -12,7 +12,7 @@ export default class RootView extends Component {
       return (
         <div id="wrapper">
           <div className="container">
-            <h3 className="title is-3 is-spaced">Categories</h3>
+            <h3>Categories</h3>
             <div className="container">
               <div className="columns">
                 { categories && categories.map( (category, index) => {
