@@ -33,17 +33,16 @@ export const getComment = (commentId) =>
     .then(data => data.comment)
 
 export const votePost = (postId, value) => {
-
     const option = (value === 1) ? 'upVote' : 'downVote'
 
-    return fetch(`${api}/posts/${postId}`, {
+    fetch(`${api}/posts/${postId}`, {
       method: 'POST',
       headers: {
         ...headers,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ option })
-    }).then(res => res)
+    }).then(res => res.json())
   }
 
   export const voteComment = (commentId, value) => {

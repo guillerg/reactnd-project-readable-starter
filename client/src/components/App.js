@@ -8,6 +8,7 @@ import RootView from './RootView'
 import CategoryView from './CategoryView'
 import PostDetailView from './PostDetailView'
 import NoMatch from './NoMatch'
+import AddPost from './AddPost'
 
 class App extends Component {
 
@@ -29,11 +30,13 @@ class App extends Component {
           <Route path='/category/:url' render={ ({ match }) => (
             <CategoryView
               categoryPath={match.params.url}
-              categories={this.props.categories} />
+              categories={this.props.categories}
+              posts={this.props.posts} />
           )}/>
           <Route path='/post/:query' render={({ match }) => (
             <PostDetailView postId={match.params.query} />
           )}/>
+          <Route path='/new' component={AddPost} />
           <Route component={NoMatch}/>
         </Switch>
       </div>
@@ -44,7 +47,8 @@ class App extends Component {
 function mapStateToProps (state, props) {
   return {
     categories: state.categories.categories,
-    posts: state.posts.posts
+    //posts: state.posts.posts
+    posts: Object.keys(state.posts).map((key) => state.posts[key])
   }
 }
 

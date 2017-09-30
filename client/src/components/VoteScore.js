@@ -6,18 +6,20 @@ import * as api from '../util/api'
 class VoteScore extends Component {
 	render() {
 
-		const { post, voteScore } = this.props
+		const { postId, posts, vote_post } = this.props
+
+		const currentPost = (posts) ? posts.find((post) => (post.id === postId)) : ''
 
 		return (
 			<div className="wrapper">
-				<div className=''>
-					{post.voteScore}
+				<div>
+					{currentPost.voteScore}
 				</div>
-				<a className="button" onClick={() => vote_post(post.voteScore,1)}>
-					<i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+				<a className="button" onClick={() => vote_post(currentPost.voteScore,1)}>
+					<i className="fa fa-thumbs-o-up"></i>
 				</a>
-				<a className="button" onClick={() => vote_post(post.voteScore,-1)}>
-					<i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
+				<a className="button" onClick={() => vote_post(currentPost.voteScore,-1)}>
+					<i className="fa fa-thumbs-o-down"></i>
 				</a>
 			</div>
 		)
@@ -32,10 +34,9 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    votePost: (Nvalue, diff) => {
-      api.votePost(ownProps.post.id, diff).then(() =>
-        dispatch(vote_post(ownProps.post.id, Nvalue+diff))
-			)
+    vote_post: (Nvalue, diff) => {
+      api.votePost(ownProps.postId, diff)
+      dispatch(vote_post(ownProps.postId, Nvalue+diff))
     }
   }
 }

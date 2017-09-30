@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import PostDetailView from './PostDetailView'
-import HomePosts from './HomePosts'
+import PostList from './PostList'
 
 export default class RootView extends Component {
 
@@ -15,22 +15,26 @@ export default class RootView extends Component {
             <h3 className="title is-3 is-spaced">Categories</h3>
             <div className="container">
               <div className="columns">
-                { categories && categories.map( (category, index) =>
-                <Link to={'/category/'+category.path} key={index} className="column">
-                  <p className=''>
-                    <span className="subtitle">{category.name}</span>
-                  </p>
-                </Link>
+                { categories && categories.map( (category, index) => {
+                   const postCount = posts.filter( (post) => (post.category === category.path)).length;
+                   return (
+                     <Link to={'/category/'+category.path} key={index} className="column">
+                     <p>
+                       <span className="subtitle">{category.name}</span>
+                       <br/>
+                       { postCount + ' posts' }
+                     </p>
+                   </Link>
+                   )
+                }
               ) }
             </div>
           </div>
         </div>
 
         <section>
-        <div className="container" style={{marginTop:'2em'}}>
-          { posts && posts.map( (post, index) =>
-            <HomePosts key={index} post={post} />
-          ) }
+        <div className="wrapper" style={{marginTop:'2em'}}>
+          <PostList posts={posts}/>
         </div>
       </section>
 

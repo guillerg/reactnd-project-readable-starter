@@ -14,7 +14,8 @@ export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
-
+export const UPDATE_SORTING = 'UPDATE_SORTING'
+export const POST_FORM = 'POST_FORM'
 export const VOTE_POST = 'VOTE_POST'
 
 export function vote_post(postId, score){
@@ -31,6 +32,8 @@ export function load_categories(categories) {
     categories
   }
 }
+
+
 export function load_posts(posts) {
   return {
     type: LOAD_POSTS,
@@ -43,19 +46,30 @@ export function load_post(post) {
     post
   }
 }
-export function add_post ({ id, timestamp, title, body, author, category, voteScore, deleted }) {
+export function add_post (post) {
   return {
     type: ADD_POST,
-    id,
-    timestamp,
-    title,
-    body,
-    author,
-    category,
-    voteScore,
-    deleted
+    title: post.title,
+    category: post.category,
+    username: post.username,
+    message: post.message
   }
 }
+export function update_sorting(method) {
+  return {
+    type: UPDATE_SORTING,
+    method
+  }
+}
+
+export function post_form(name, value) {
+  return {
+    type: POST_FORM,
+    name,
+    value
+  }
+}
+
 export function edit_post ({ id, title, body }) {
   return {
     type: EDIT_POST,
