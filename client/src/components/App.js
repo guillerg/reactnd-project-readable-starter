@@ -36,7 +36,7 @@ class App extends Component {
           <Route path='/post/:query' render={({ match }) => (
             <PostDetailView postId={match.params.query} />
           )}/>
-          <Route path='/new' component={AddPost} />
+          <Route path='/addpost' component={AddPost} />
           <Route component={NoMatch}/>
         </Switch>
       </div>

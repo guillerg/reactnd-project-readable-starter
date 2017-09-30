@@ -59,27 +59,27 @@ export const votePost = (postId, value) => {
   }).then(res => res)
 }
 
-export const addPost = (formValues) => {
+export const addPost = (post) => {
 
   const body = {
-    id: formValues.id,
-    title: formValues.title,
-    category: formValues.category,
-    author: formValues.username,
-    body: formValues.message,
-    timestamp: formValues.timestamp,
+    id: post.id,
+    title: post.title,
+    category: post.category,
+    author: post.username,
+    body: post.message,
+    timestamp: post.timestamp,
     voteScore: 1,
     deleted: false
   }
 
-  return fetch(`${api}/posts/`, {
+  fetch(`${api}/posts/`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  })
+  }).then(res => res.json())
 
 }
 

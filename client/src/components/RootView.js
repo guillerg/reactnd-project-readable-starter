@@ -10,6 +10,7 @@ export default class RootView extends Component {
     const { posts, categories } = this.props
 
       return (
+
         <div id="wrapper">
           <div className="container">
             <h3>Categories</h3>

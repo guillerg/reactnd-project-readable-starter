@@ -55,8 +55,9 @@ const { posts, sortMethod, update_sorting } = this.props
         </div>
 
         <div className="container has-top-margin">
-          <Link className="button" to="/new">
-            Add post
+					<Link to="/addpost">
+            <span className="icon"><i className="fa fa-plus-square"></i></span>
+            &nbsp; Add new post
           </Link>
         </div>
 

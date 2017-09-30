@@ -8,7 +8,8 @@ import {
   POST_FORM,
   ADD_POST,
   ADD_COMMENT,
-  LOAD_COMMENTS
+  LOAD_COMMENTS,
+  CONTROL_NEW_POST_FORM
 } from '../actions'
 
 function categories( state = {}, action){
@@ -52,18 +53,18 @@ function posts ( state = {}, action ) {
         }
       }
     case ADD_POST:
-        const { title, username, message, category } = action
+        const { title, username, message, category, id, timestamp } = action
         return {
               ...state,
-              theNewPost: {
+              newPost: {
                 author: username,
-                body: message,
-                category,
-                deleted: false,
-                id: 'theNewPost',
-                timestamp: 1467166872634,
-                title,
-                voteScore: 1
+                  body: message,
+                  category,
+                  deleted: false,
+                  id,
+                  timestamp,
+                  title,
+                  voteScore: 1
               }
             }
     default :
@@ -84,7 +85,33 @@ function comments ( state = {}, action ) {
   }
 }
 
+function sorting(state = 'score', action) {
+  switch (action.type) {
+    case UPDATE_SORTING:
+      return action.method
+    default :
+      return state
+  }
+}
+
+function newPostForm(state = {}, action) {
+  switch (action.type) {
+    case CONTROL_NEW_POST_FORM:
+      const { name, value } = action
+      return {
+        ...state,
+        [name]: value
+      }
+    default :
+      return state
+  }
+}
+
 export default combineReducers({
   categories,
   posts,
+  comments,
+  sorting,
+  newPostForm
+
 })

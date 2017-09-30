@@ -5,18 +5,15 @@ export const LOAD_POST = 'LOAD_POST'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
-export const UPVOTE_POST = 'UPVOTE_POST'
-export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 
 export const LOAD_COMMENTS = 'LOAD_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const UPVOTE_COMMENT = 'UPVOTE_COMMENT'
-export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENT'
 export const UPDATE_SORTING = 'UPDATE_SORTING'
 export const POST_FORM = 'POST_FORM'
 export const VOTE_POST = 'VOTE_POST'
+export const CONTROL_NEW_POST_FORM = 'CONTROL_NEW_POST_FORM'
 
 export function vote_post(postId, score){
   return{
@@ -46,13 +43,24 @@ export function load_post(post) {
     post
   }
 }
+
+export function controlNewPostForm(name, value) {
+  return {
+    type: CONTROL_NEW_POST_FORM,
+    name,
+    value
+  }
+}
+
 export function add_post (post) {
   return {
     type: ADD_POST,
     title: post.title,
     category: post.category,
     username: post.username,
-    message: post.message
+    message: post.message,
+    id: post.id,
+    timestamp: post.timestamp
   }
 }
 export function update_sorting(method) {
@@ -85,20 +93,7 @@ export function delete_post ({ id, deleted }) {
     deleted
   }
 }
-export function upvote_post ({ id, voteScore }) {
-  return {
-    type: UPVOTE_POST,
-    id,
-    voteScore
-  }
-}
-export function downvote_post ({ id, voteScore }) {
-  return {
-    type: DOWNVOTE_POST,
-    id,
-    voteScore
-  }
-}
+
 export function load_comments (postId, comments) {
   return {
     type: LOAD_COMMENTS,
@@ -119,19 +114,5 @@ export function delete_comment ({ id, deleted, parentDeleted }) {
     id,
     deleted,
     parentDeleted
-  }
-}
-export function upvote_comment ({ id, voteScore }) {
-  return {
-    type: UPVOTE_COMMENT,
-    id,
-    voteScore
-  }
-}
-export function downvote_comment ({ id, voteScore }) {
-  return {
-    type: DOWNVOTE_COMMENT,
-    id,
-    voteScore
   }
 }
