@@ -20,24 +20,38 @@ class App extends Component {
 
   render() {
 
+    const { history, categories, posts } = this.props
+
     return (
       <div className="app">
         <Switch>
           <Route exact path='/' render={ ({ match }) => (
             <RootView
               categories={this.props.categories}
-              posts={this.props.posts} />
+              posts={this.props.posts}
+              history={history} />
             )}/>
           <Route path='/category/:url' render={ ({ match }) => (
             <CategoryView
               categoryPath={match.params.url}
               categories={this.props.categories}
-              posts={this.props.posts} />
+              posts={this.props.posts}
+              history={history} />
           )}/>
+          <Route path='/edit/:query' render={({ match }) => (
+            <EditPost postId={match.params.query} history={history} />
+          )}/>
+          <Route path='/:category/:postId' render={ ({ match }) => (
+            <PostDetailView
+              postId={match.params.postId}
+              categoryUrl={match.params.category}
+              history={history} />
+            )}/>
           <Route path='/post/:query' render={({ match }) => (
-            <PostDetailView postId={match.params.query} />
+            <PostDetailView postId={match.params.query} history={history} />
           )}/>
-          <Route path='/addpost' component={AddPost} />
+           <Route exact path='/add' component={AddPost} />
+
           <Route component={NoMatch}/>
         </Switch>
       </div>
