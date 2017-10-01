@@ -107,6 +107,9 @@ export function edit_post(post) {
   }
 }
 
+
+
+
 export function load_comments (postId, comments) {
   return {
     type: LOAD_COMMENTS,

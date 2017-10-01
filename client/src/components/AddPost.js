@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { controlNewPostForm, add_post } from '../actions'
+import { add_post_form, add_post } from '../actions'
 import * as api from '../util/api'
 
 class AddPost extends Component {
+
+  componentWillMount() {
+    this.props.controlNewPostForm('showNotification', false)
+    this.props.controlNewPostForm('title', '')
+    this.props.controlNewPostForm('category', '')
+    this.props.controlNewPostForm('username', '')
+    this.props.controlNewPostForm('message', '')
+    this.props.controlNewPostForm('category', 0)
+
+  }
+
 
   handleSubmit = (event) => {
       event.preventDefault()
@@ -136,11 +147,14 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlNewPostForm: (name, value) =>
-      dispatch(controlNewPostForm(name, value)),
+      dispatch(add_post_form(name, value)),
     addNewPost: (formValues) => {
-      api.addPost(formValues)
-      dispatch(add_post(formValues))
-      ownProps.history.push('/');
+      api.addPost(formValues).then(() => {
+        dispatch(add_post(formValues))
+        api.getAllPosts().then( (posts) => {
+          ownProps.history.push('/')
+        })
+      })
     }
   }
 }

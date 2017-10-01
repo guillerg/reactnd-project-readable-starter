@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { update_sorting, load_comments } from '../actions'
+import { posts_sort, load_comments } from '../actions'
 import { Link } from 'react-router-dom'
 import PostsThumbs from './PostsThumbs'
 import * as api from '../util/api'
@@ -75,7 +75,7 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     update_sorting: (newSortMethod) => {
-      dispatch(update_sorting(newSortMethod))
+      dispatch(posts_sort(newSortMethod))
     },
 		load_comments: () =>
       api.getPostComments(ownProps.post.id).then( (comments) => {

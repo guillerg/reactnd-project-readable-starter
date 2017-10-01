@@ -1,4 +1,4 @@
-mport {
+import {
   LOAD_POSTS,
   ADD_POST,
   EDIT_POST,
@@ -7,9 +7,7 @@ mport {
   ADD_POST_FORM,
   EDIT_POST_FORM,
   POST_DELETE_MODAL_SHOW,
-  LOAD_POST_DELETE_MODAL,
-
-
+  LOAD_POST_DELETE_MODAL
 } from '../actions'
 
 export const posts = (state = {}, action) => {
