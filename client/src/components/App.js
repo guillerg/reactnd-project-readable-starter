@@ -61,9 +61,10 @@ class App extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    categories: state.categories.categories,
-    //posts: state.posts.posts
-    posts: Object.keys(state.posts).map((key) => state.posts[key])
+    categories: state.categories,
+    posts: Object.keys(state.posts)
+      .map((key) => state.posts[key])
+      .filter((post) => (post.deleted === false))
   }
 }
 
