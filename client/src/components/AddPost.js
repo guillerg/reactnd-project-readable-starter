@@ -8,24 +8,28 @@ class AddPost extends Component {
   handleSubmit = (event) => {
       event.preventDefault()
       if (this.fieldsAreValid()) {
+        console.log('***********')
+        console.log('READY TO SEND !!!!')
+        console.log('***********')
         this.props.newPostForm.id = '_'+Math.random().toString(36).substr(2, 9)
         this.props.newPostForm.timestamp = Date.now()
         this.props.addNewPost(this.props.newPostForm)
       } else {
-        console.error('Invalid form')
+        console.error('THIS IS NO VALID FORM!!!!')
       }
       event.preventDefault()
   }
 
-  fieldsAreValid = () => {
+    fieldsAreValid = () => {
         const form = this.props.newPostForm
         if (form.title && form.category && form.username && form.message) return true;
         return false;
-  }
+      }
 
-  handleChange = (event) => {
+      handleChange = (event) => {
         this.props.controlNewPostForm(event.target.name, event.target.value)
-  }
+      }
+
 
 	render() {
 
@@ -125,17 +129,17 @@ class AddPost extends Component {
 function mapStateToProps(state) {
   return {
     categories: state.categories.categories,
-    addPostForm: state.newPostForm
+    addPostForm: state.addPostForm
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlNewPostForm: (name, value) =>
-      dispatch(addPostForm(name, value)),
-    addNewPost: (form) => {
-      api.addPost(form)
-      dispatch(add_post(form))
+      dispatch(controlNewPostForm(name, value)),
+    addNewPost: (formValues) => {
+      api.addPost(formValues)
+      dispatch(add_post(formValues))
       ownProps.history.push('/');
     }
   }
