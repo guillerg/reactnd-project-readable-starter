@@ -9,11 +9,11 @@ import VoteScore from './VoteScore'
 class PostList extends Component {
 
 
-	render() {
+render() {
 
-const { posts, sortMethod, update_sorting } = this.props
+	const { posts, sortMethod, update_sorting, history } = this.props
 
-		const sortByScore = (a, b) => {
+	const sortByScore = (a, b) => {
 			(a.voteScore > b.voteScore)
 				return -1;
 			if (a.voteScore < b.voteScore)
@@ -21,15 +21,15 @@ const { posts, sortMethod, update_sorting } = this.props
 			return 0;
 		}
 
-	 const sortByDate = (a, b) => {
+	const sortByDate = (a, b) => {
 			if (a.timestamp > b.timestamp)
 				return -1;
 			if (a.timestamp < b.timestamp)
 				return 1;
 			return 0;
-	}
+		}
 
-    (sortMethod === 'date') ?
+  (sortMethod === 'date') ?
 			posts.sort(sortByDate):
       posts.sort(sortByScore)
 
@@ -50,12 +50,12 @@ const { posts, sortMethod, update_sorting } = this.props
 
         <div>
 					{ posts && posts.length && posts.map( (post, index) =>
-            <PostsThumbs key={index} post={post} />
+            <PostsThumbs key={index} post={post} history={history}/>
           ) }
         </div>
 
         <div className="container has-top-margin">
-					<Link to="/addpost">
+					<Link to="/add">
             <span className="icon"><i className="fa fa-plus-square"></i></span>
             &nbsp; Add new post
           </Link>

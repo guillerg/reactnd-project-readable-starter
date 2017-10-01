@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import PostDetailView from './PostDetailView'
 import PostList from './PostList'
 
 export default class RootView extends Component {
 
   render() {
 
-    const { posts, categories } = this.props
+    const { posts, categories, history } = this.props
 
       return (
 

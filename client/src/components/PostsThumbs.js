@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { load_comments } from '../actions'
+import { load_comments, post_delete_modal_show, load_post_delete_modal } from '../actions'
 import * as api from '../util/api'
 import VoteScore from './VoteScore'
 
@@ -14,20 +14,15 @@ class PostsThumbs extends Component {
 
 	render() {
 
-    const { post, comments } = this.props
+    const { post, comments,  deletePostModal, post_delete_modal_show,
+      load_post_delete_modal,history} = this.props
 
-    let postComments = false
-    if (comments) {
-      postComments = comments[post.id]
-    }
+    const postComments = (comments) ? comments[post.id] : false
 
 		return (
-      <div >
-        <article className="media">
-          <div>
-            <figure className="has-text-centered">
+      <div className="box">
+          <div className="media-left">
               <VoteScore postId={post.id} />
-            </figure>
           </div>
           <div >
             <div >
@@ -40,30 +35,41 @@ class PostsThumbs extends Component {
                 {post.timestamp}
                 </small>
                 <br />
-                <Link to={'/post/'+post.id} className="is-size-5">{post.title}</Link>
+                <Link to={'/'+post.category+'/'+post.id} className="is-size-5">{post.title}</Link>
               </p>
             </div>
-            <nav className="level is-mobile">
               <div className="level-left">
-                <Link to={'/category/'+post.category} className="tag">
+                <Link to={'/category/'+post.category}>
                   {post.category}
                 </Link>
                 &nbsp;
-                <span className="icon is-small">
+                <span className="icon">
                   <i className="fa fa-comment-o"></i>
                 </span>
                 &nbsp;
-                { postComments && postComments.length ?
-                  ((postComments.length === 1) ?
-                      '1 comment'
-                      : postComments.length + ' comments')
-                  : ' 0 comments'
-                }
+                Comments: {(postComments.length)? postComments.length:0}
               </div>
-            </nav>
           </div>
-        </article>
+          <div className="column">
+            <div className="button is-small is-outlined"
+              onClick={() => {
+                load_post_delete_modal(post.id)
+                post_delete_modal_show(true)
+              }}>
+              <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+                &nbsp;
+                delete
+              </div>
+          </div>
+
+
+
+
       </div>
+
+
+
+
 		)
 	}
 }

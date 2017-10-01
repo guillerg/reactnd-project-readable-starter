@@ -20,8 +20,6 @@ class App extends Component {
 
   render() {
 
-    const { history, categories, posts } = this.props
-
     return (
       <div className="app">
         <Switch>
@@ -29,26 +27,26 @@ class App extends Component {
             <RootView
               categories={this.props.categories}
               posts={this.props.posts}
-              history={history} />
+              history={this.props.history} />
             )}/>
           <Route path='/category/:url' render={ ({ match }) => (
             <CategoryView
               categoryPath={match.params.url}
               categories={this.props.categories}
               posts={this.props.posts}
-              history={history} />
+              history={this.props.history} />
           )}/>
           <Route path='/edit/:query' render={({ match }) => (
-            <EditPost postId={match.params.query} history={history} />
+            <EditPost postId={match.params.query} history={this.props.history} />
           )}/>
           <Route path='/:category/:postId' render={ ({ match }) => (
             <PostDetailView
               postId={match.params.postId}
               categoryUrl={match.params.category}
-              history={history} />
+              history={this.props.history} />
             )}/>
           <Route path='/post/:query' render={({ match }) => (
-            <PostDetailView postId={match.params.query} history={history} />
+            <PostDetailView postId={match.params.query} history={this.props.history} />
           )}/>
            <Route exact path='/add' component={AddPost} />
 
