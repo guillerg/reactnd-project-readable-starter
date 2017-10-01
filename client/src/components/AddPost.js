@@ -125,14 +125,14 @@ class AddPost extends Component {
 function mapStateToProps(state) {
   return {
     categories: state.categories.categories,
-    newPostForm: state.newPostForm
+    addPostForm: state.newPostForm
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlNewPostForm: (name, value) =>
-      dispatch(controlNewPostForm(name, value)),
+      dispatch(addPostForm(name, value)),
     addNewPost: (form) => {
       api.addPost(form)
       dispatch(add_post(form))
