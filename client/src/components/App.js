@@ -9,6 +9,7 @@ import CategoryView from './CategoryView'
 import PostDetailView from './PostDetailView'
 import NoMatch from './NoMatch'
 import AddPost from './AddPost'
+import EditPost from './EditPost'
 
 class App extends Component {
 
