@@ -5,7 +5,7 @@ import {
 } from '../actions'
 
 import { categories } from './categories'
-import { posts, addPostForm, editPostForm, postDeleteModalShow } from './posts'
+import { posts, addPostForm, editPostForm, deletePostModal } from './posts'
 
 function sortMethod(state = 'score', action) {
   switch (action.type) {
@@ -24,6 +24,5 @@ export default combineReducers({
   sortMethod,
   addPostForm,
   editPostForm,
-  postDeleteModalShow
-
+  deletePostModal
 })

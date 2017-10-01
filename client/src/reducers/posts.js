@@ -93,7 +93,7 @@ export const addPostForm = (state = {}, action) => {
   }
 }
 
-export const postDeleteModalShow = (state = false, action) => {
+export const deletePostModal = (state = false, action) => {
   switch (action.type) {
     case POST_DELETE_MODAL_SHOW:
       const { active } = action

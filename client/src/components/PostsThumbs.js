@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { load_comments, post_delete_modal_show, load_post_delete_modal } from '../actions'
 import * as api from '../util/api'
 import VoteScore from './VoteScore'
+import DeletePost from './DeletePost'
 
 
 class PostsThumbs extends Component {
@@ -67,8 +68,8 @@ class PostsThumbs extends Component {
                         <span className="icon is-small"><i className="fa fa-edit"></i></span>
                         &nbsp;
                         edit
-                      </Link>
-
+            </Link>
+            <DeletePost deletePostModal={deletePostModal} history={history} />
       </div>
 
 		)
