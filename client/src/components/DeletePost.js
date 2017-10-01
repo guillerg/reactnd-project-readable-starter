@@ -14,7 +14,6 @@ class DeletePost extends Component {
         <Modal
           isOpen={deletePostModal.isActive}
           onRequestClose={() => post_delete_modal_show(false)}
-          contentLabel="No Overlay Click Modal"
         >
           <div className="container">
             <h1 className="title">

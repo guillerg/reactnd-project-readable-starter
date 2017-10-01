@@ -10,13 +10,13 @@ import DeletePost from './DeletePost'
 class PostsThumbs extends Component {
 
   componentWillMount() {
-      this.props.load_comments(this.props.postId);
+      this.props.loadPostDeleteModal(this.props.postId);
   }
 
 	render() {
 
-    const { post, comments,  deletePostModal, post_delete_modal_show,
-      load_post_delete_modal,history} = this.props
+    const { post, comments,  deletePostModal, showDeleteModal,
+      loadPostDeleteModal,history} = this.props
 
     const postComments = (comments) ? comments[post.id] : false
 
@@ -55,7 +55,7 @@ class PostsThumbs extends Component {
             <div className="button is-small is-outlined"
               onClick={() => {
                 load_post_delete_modal(post.id)
-                post_delete_modal_show(true)
+                showDeleteModal(true)
               }}>
               <span className="icon is-small"><i className="fa is-danger fa-trash-o"></i></span>
                 &nbsp;
@@ -85,12 +85,12 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    load_comments: () =>
+    loadPostDeleteModal: () =>
       api.getPostComments(ownProps.post.id).then( (comments) => {
         dispatch(load_comments(ownProps.post.id, comments))
       }
     ),
-    displayDeleteModal: (bool) => {
+    showDeleteModal: (bool) => {
           dispatch(post_delete_modal_show(bool))
         },
         setPostIdToDeleteModal: (postId) => {

@@ -5,37 +5,28 @@ import * as api from '../util/api'
 
 class AddPost extends Component {
 
-  componentWillMount() {
-    this.props.controlNewPostForm('showNotification', false)
-    this.props.controlNewPostForm('title', '')
-    this.props.controlNewPostForm('category', '')
-    this.props.controlNewPostForm('username', '')
-    this.props.controlNewPostForm('message', '')
-    this.props.controlNewPostForm('category', 0)
-
-  }
 
 
   handleSubmit = (event) => {
       event.preventDefault()
       if (this.fieldsAreValid()) {
-        console.log('***********')
-        console.log('READY TO SEND !!!!')
-        console.log('***********')
-        this.props.newPostForm.id = '_'+Math.random().toString(36).substr(2, 9)
-        this.props.newPostForm.timestamp = Date.now()
-        this.props.addNewPost(this.props.newPostForm)
-      } else {
-        console.error('THIS IS NO VALID FORM!!!!')
+        this.props.addPostForm.id = '_'+Math.random().toString(36).substr(2, 9)
+        this.props.addPostForm.timestamp = Date.now()
+        this.props.addNewPost(this.props.addPostForm)
       }
       event.preventDefault()
   }
 
-    fieldsAreValid = () => {
-        const form = this.props.newPostForm
-        if (form.title && form.category && form.username && form.message) return true;
-        return false;
-      }
+  fieldsAreValid = () => {
+      const form = this.props.addPostForm
+      if (form.title && form.title !== ''
+        && form.category && form.category !== ''
+        && form.username && form.username !== ''
+        && form.message && form.message !== ''
+        && form.category !== 0
+        ) return true;
+      return false;
+  }
 
       handleChange = (event) => {
         this.props.controlNewPostForm(event.target.name, event.target.value)
@@ -44,17 +35,17 @@ class AddPost extends Component {
 
 	render() {
 
-    const { categories } = this.props
+    const { categories, newPostForm, controlNewPostForm } = this.props
 
 		return (
 		<div>
-        <div className="container has-top-margin has-bottom-margin">
+        <div>
           <div className="columns">
             <div className="column is-half">
 
               <form onSubmit={this.handleSubmit}>
                 <div className="title">
-                  Add a new Post
+                  New Post
                 </div>
 
                 <div className="field">
@@ -82,7 +73,6 @@ class AddPost extends Component {
                       <i className="fa fa-user"></i>
                     </span>
                   </div>
-                  <p className="usernameMessageError help is-success is-hidden">This username is not valid</p>
                 </div>
 
                 <div className="field">
@@ -93,13 +83,13 @@ class AddPost extends Component {
                         name="category"
                         onChange={(event) => this.handleChange(event)}>
                         <option value="0">Select category</option>
-                        { categories && categories.map((category, index) =>
-                          <option
-                            key={index}
-                            value={category.path}>
-                              {category.name}
-                          </option>
-                        )}
+                          { categories && categories.map((category, index) =>
+                            <option
+                              key={index}
+                              value={category.path}>
+                                {category.name}
+                            </option>
+                          )}
                       </select>
                     </div>
                   </div>
@@ -112,7 +102,7 @@ class AddPost extends Component {
                       name="message"
                       onChange={(event) => this.handleChange(event)}
                       className="textarea"
-                      placeholder="Your message" />
+                      placeholder="Message" />
                   </div>
                 </div>
 
@@ -139,7 +129,7 @@ class AddPost extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories.categories,
+    categories: state.categories,
     addPostForm: state.addPostForm
   }
 }

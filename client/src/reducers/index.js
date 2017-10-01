@@ -16,8 +16,6 @@ function sortMethod(state = 'score', action) {
   }
 }
 
-
-
 export default combineReducers({
   categories,
   posts,
