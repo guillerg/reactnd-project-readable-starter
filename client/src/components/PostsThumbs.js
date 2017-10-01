@@ -56,19 +56,20 @@ class PostsThumbs extends Component {
                 load_post_delete_modal(post.id)
                 post_delete_modal_show(true)
               }}>
-              <span className="icon is-small"><i className="fa fa-trash-o"></i></span>
+              <span className="icon is-small"><i className="fa is-danger fa-trash-o"></i></span>
                 &nbsp;
                 delete
               </div>
           </div>
-
-
-
+          <br />
+            <Link to={'/edit/'+post.id}
+              className="button  is-small is-info is-outlined">
+                        <span className="icon is-small"><i className="fa fa-edit"></i></span>
+                        &nbsp;
+                        edit
+                      </Link>
 
       </div>
-
-
-
 
 		)
 	}
@@ -76,8 +77,8 @@ class PostsThumbs extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    posts: Object.keys(state.posts).map((key) => state.posts[key]),
-    comments: state.comments
+    comments: state.comments,
+    deletePostModal: state.deletePostModal
   }
 }
 
@@ -87,7 +88,15 @@ function mapDispatchToProps(dispatch, ownProps) {
       api.getPostComments(ownProps.post.id).then( (comments) => {
         dispatch(load_comments(ownProps.post.id, comments))
       }
-    )
+    ),
+    displayDeleteModal: (bool) => {
+          dispatch(post_delete_modal_show(bool))
+        },
+        setPostIdToDeleteModal: (postId) => {
+          dispatch(load_post_delete_modal(postId))
+        }
+
+
   }
 }
 

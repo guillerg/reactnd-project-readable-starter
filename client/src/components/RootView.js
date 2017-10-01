@@ -6,7 +6,7 @@ export default class RootView extends Component {
 
   render() {
 
-    const { posts, categories, history } = this.props
+    const { posts, categories } = this.props
 
       return (
 
