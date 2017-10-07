@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { edit_comment_form, edit_comment } from '../actions'
-//import VoteScoreComment from './VoteScoreComment';
-//import CommentActions from './CommentActions';
+import { edit_comment_form, edit_comment, load_comments} from '../actions'
+import VoteComment from './VoteComment';
 import * as api from '../util/api'
 
 class CommentView extends Component {
 
   componentDidMount() {
-    this.props.editCommentForm('id', 0)
+    this.props.controlEditCommentForm('id', 0)
   }
-
 
   handleSubmit() {
 
@@ -23,16 +21,20 @@ class CommentView extends Component {
       this.props.editCommentForm.id,
       this.props.editCommentForm.commentBody,
       this.props.editCommentForm.commentAuthor)
+    } else {
+      console.log('Comment form error')
     }
   }
 
   handleChange(event) {
-    this.props.editCommentForm(event.target.name, event.target.value)
+    this.props.controlEditCommentForm(event.target.name, event.target.value)
   }
 
 	render() {
 
     const { comment, editCommentForm, controlEditCommentForm } = this.props
+
+    const { deleteComment, editComment } = this.props
 
 		return (
 
@@ -40,24 +42,35 @@ class CommentView extends Component {
         <div className="column">
 
           <div className="column" style={{maxWidth: '115px'}}>
-            <VoteScoreComment voteScore={comment.voteScore} comment={comment} />
+            <VoteComment voteScore={comment.voteScore} comment={comment} />
           </div>
           <div className="column">
             { (editCommentForm.id !== comment.id) &&
             <div>
               <strong>{comment.author}</strong>
               &nbsp;
-              <small>{showDate(comment.timestamp)}</small>
-              &nbsp; · &nbsp;
-              <CommentActions comment={comment} />
+              <small>{comment.timestamp}</small>
+              &nbsp;
+
+              <span>
+                <div onClick={deleteComment}
+                  className="button is-small is-danger is-outlined">
+                  Delete
+                </div>
+                &nbsp;
+                <div onClick={editComment}
+                  className="button is-small is-info is-outlined">
+                  Edit
+                </div>
+              </span>
+
               <br />
               <div className="content">
-                {comment.body.split('\n').map((item, key) => {
-                  return <span key={key}>{item}<br/></span>
-                })}
+                {comment.body}
               </div>
             </div>
             }
+
             { (editCommentForm.id === comment.id) &&
               <div className="editCommentArea">
                 <input type="text"
@@ -77,17 +90,9 @@ class CommentView extends Component {
                 &nbsp;
                 <div
                   className="button is-small"
-                  onClick={() => {controlEditCommentForm('id', 0)}}>
+                  onClick={() => {editCommentForm('id', 0)}}>
                   Cancel
                 </div>
-                { editCommentForm.showNotification &&
-                  <div className="notification is-danger" style={{marginTop: '10px'}}>
-                    <button className="delete" onClick={() => controlEditCommentForm('showNotification', false)}></button>
-                    <strong>Oops. Something is not right.</strong><br />
-                    Please enter your username and some text for the comment.
-                  </div>
-                }
-
               </div>
             }
           </div>
@@ -105,19 +110,30 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     controlEditCommentForm: (name, value) => {
-      dispatch(controlEditCommentForm(name, value))
+      dispatch(edit_comment_form(name, value))
     },
-    updateComment: (commentId, body, author) => {
-      updateCommentById(commentId, body, author)
+    editComment: (commentId, body, author) => {
+      api.editComment(commentId, body, author)
         .then(() => {
-          dispatch(updateComment(commentId,
+          dispatch(edit_comment(commentId,
             ownProps.comment.parentId,
             body,
             author))
-          dispatch(controlEditCommentForm('id', 0))
-          notify.show('✅ Comment Updated!');
+          dispatch(edit_comment_form('id', 0))
         }
         )
+    },
+    deleteComment: () => {
+      api.deleteComment(ownProps.comment.id).then(() => {
+        api.getPostComments(ownProps.comment.parentId).then( (comments) => {
+          dispatch(load_comments(ownProps.comment.parentId, comments))
+        })
+      })
+    },
+    EditingComment: () => {
+      dispatch(edit_comment_form('id', ownProps.comment.id))
+      dispatch(edit_comment_form('commentAuthor', ownProps.comment.author))
+      dispatch(edit_comment_form('commentBody', ownProps.comment.body))
     }
   }
 }

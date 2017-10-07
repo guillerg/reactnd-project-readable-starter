@@ -4,6 +4,7 @@ import { load_comments, post_delete_modal_show, load_post_delete_modal } from '.
 import * as api from '../util/api'
 import VotePost from './VotePost'
 import DeletePost from './DeletePost'
+import CommentView from './CommentView'
 import { Link } from 'react-router-dom'
 //import AddComment from './../comment/AddComment'
 
@@ -58,28 +59,7 @@ class PostDetailView extends Component {
                     comments: {comments.length}
                   </div>
                   {postComments.map( (comment, index) =>
-                    <p key={index}>
-                      <div className="box">
-                          <div>
-                            <div >
-                              <p>
-                                <strong>{comment.author}</strong> <small>{comment.timestamp}</small>
-                                <br />
-                                {comment.body}
-                              </p>
-                            </div>
-                              <div>
-                                <a>
-                                  <span><i className="fa fa-edit"></i></span>
-                                </a>
-                                <a>
-                                  <span><i className="fa fa-trash-o"></i></span>
-                                </a>
-                              </div>
-                          </div>
-                      </div>
-
-                    </p>
+                    <CommentView position={index} key={index} comment={comment} />
                   )}
                 </div>
               }

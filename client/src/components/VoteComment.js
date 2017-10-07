@@ -3,22 +3,22 @@ import { connect } from 'react-redux'
 import { load_comments } from '../actions'
 import * as api from '../util/api'
 
-class VoteScoreComment extends Component {
+class VoteComment extends Component {
 
 	render() {
 
-		const { comment, applyVoteToComment } = this.props
+		const { comment, voteComment } = this.props
 
 		return (
-			<div className="readable-voteScore-wrapper">
-				<div className={'readable-voteScore-value notification ' + getColorClassForVoteScore(comment.voteScore)}>
+			<div>
+				<div>
 					{comment.voteScore}
 				</div>
-				<a className="button is-success is-outlined" onClick={() => applyVoteToComment(comment.voteScore, 1)}>
-					<i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+				<a className="button is-success is-outlined" onClick={() => voteComment(comment.voteScore, 1)}>
+					<i className="fa fa-thumbs-o-up"></i>
 				</a>
-				<a className="button is-danger is-outlined" onClick={() => applyVoteToComment(comment.voteScore, -1)}>
-					<i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
+				<a className="button is-danger is-outlined" onClick={() => voteComment(comment.voteScore, -1)}>
+					<i className="fa fa-thumbs-o-down"></i>
 				</a>
 			</div>
 		)
@@ -28,20 +28,20 @@ class VoteScoreComment extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    posts: objectToArray(state.posts)
+    posts: Object.keys(state.posts).map((key) => state.posts[key])
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    applyVoteToComment: (newValue, diff) => {
-      voteComment(ownProps.comment.id, diff).then(() => {
-        getCommentsByPostId(ownProps.comment.parentId).then( (comments) => {
-          dispatch(setPostComments(ownProps.comment.parentId, comments))
+    voteComment: (newValue, value) => {
+      api.voteComment(ownProps.comment.id, value).then(() => {
+        api.getPostComments(ownProps.comment.parentId).then( (comments) => {
+          dispatch(load_comments(ownProps.comment.parentId, comments))
         })
       })
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VoteScoreComment)
+export default connect(mapStateToProps, mapDispatchToProps)(VoteComment)
