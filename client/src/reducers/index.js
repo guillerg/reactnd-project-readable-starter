@@ -6,6 +6,7 @@ import {
 
 import { categories } from './categories'
 import { posts, addPostForm, editPostForm, deletePostModal } from './posts'
+import { comments, addCommentControl, editCommentForm } from './comments'
 
 function sortMethod(state = 'score', action) {
   switch (action.type) {
@@ -22,5 +23,8 @@ export default combineReducers({
   sortMethod,
   addPostForm,
   editPostForm,
-  deletePostModal
+  deletePostModal,
+  comments,
+  addCommentControl,
+  editCommentForm
 })

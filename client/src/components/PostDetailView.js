@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 class PostDetailView extends Component {
 
   componentWillMount() {
-      this.props.loadPostComments(this.props.postId);
+      this.props.loadComments(this.props.postId);
   }
 
 	render() {
@@ -86,17 +86,18 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
+    loadComments: () =>
+      api.getPostComments(ownProps.postId).then( (comments) => {
+        dispatch(load_comments(ownProps.postId, comments))
+      }
+    ),
     showDeleteModal: (valor) => {
       dispatch(post_delete_modal_show(valor))
     },
     loadPostDeleteModal: (postId) => {
       dispatch(load_post_delete_modal(postId))
-    },
-    loadPostComments: () =>
-      api.getPostComments(ownProps.postId).then( (comments) => {
-        dispatch(load_comments(ownProps.postId, comments))
-      }
-    )
+    }
+
   }
 }
 
