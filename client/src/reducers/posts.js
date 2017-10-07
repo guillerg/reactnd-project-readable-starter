@@ -48,7 +48,7 @@ export const posts = (state = {}, action) => {
         [postDelete]: {
           ...state[postDelete],
           deleted: true
-        },
+        }
       }
 
     case EDIT_POST:

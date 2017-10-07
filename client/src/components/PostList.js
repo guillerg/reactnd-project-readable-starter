@@ -4,7 +4,7 @@ import { posts_sort, load_comments } from '../actions'
 import { Link } from 'react-router-dom'
 import PostsThumbs from './PostsThumbs'
 import * as api from '../util/api'
-import VoteScore from './VoteScore'
+import VotePost from './VotePost'
 
 class PostList extends Component {
 

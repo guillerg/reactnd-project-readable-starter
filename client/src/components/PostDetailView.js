@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { load_comments } from '../actions'
+import { load_comments, post_delete_modal_show, load_post_delete_modal } from '../actions'
 import * as api from '../util/api'
-import VoteScore from './VoteScore'
+import VotePost from './VotePost'
+import DeletePost from './DeletePost'
 import { Link } from 'react-router-dom'
+//import AddComment from './../comment/AddComment'
 
-class Post extends Component {
+class PostDetailView extends Component {
 
   componentWillMount() {
       this.props.loadPostComments(this.props.postId);
@@ -13,7 +15,8 @@ class Post extends Component {
 
 	render() {
 
-    const {posts, comments, postId} = this.props
+    const {posts, comments, postId, history,showDeleteModal, deletePostModal,loadPostDeleteModal } = this.props
+
     const currentPost = posts ? posts.find((post) => (post.id === postId)) : false
     const postComments = comments ? comments[postId] : false
 
@@ -21,8 +24,10 @@ class Post extends Component {
 		return (
 			<div>
           { currentPost &&
-            <div className="container content" style={{marginTop: '25px', marginBottom: '50px'}}>
-
+            <div className="container">
+              <div className="column">
+                <VotePost voteScore={currentPost.voteScore} post={currentPost}/>
+              </div>
               <h1>
                 {currentPost.title}
               </h1>
@@ -36,9 +41,22 @@ class Post extends Component {
                 <br />
                 category: <Link to={'/category/' + currentPost.category}>{currentPost.category}</Link>
               </p>
+              <span className="notifcation is-danger is-outlined is-small button" onClick={() => {
+                    loadPostDeleteModal(currentPost.id)
+                    showDeleteModal(true)
+                  }}>Delete
+              </span>
+              &nbsp;
+              <Link to={'/edit/'+currentPost.id}
+                className="notifcation is-info is-outlined is-small button">
+                Edit
+              </Link>
 
               { postComments &&
                 <div>
+                  <div>
+                    comments: {comments.length}
+                  </div>
                   {postComments.map( (comment, index) =>
                     <p key={index}>
                       <div className="box">
@@ -68,6 +86,11 @@ class Post extends Component {
 
             </div>
           }
+
+          <DeletePost
+          deletePostModal={deletePostModal}
+          history={history}/>
+
 			</div>
 		)
 	}
@@ -76,12 +99,19 @@ class Post extends Component {
 function mapStateToProps(state, props) {
   return {
     posts: Object.keys(state.posts).map((key) => state.posts[key]),
-    comments: state.comments
+    comments: state.comments[props.postId],
+    deletePostModal: state.deletePostModal
   }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
+    showDeleteModal: (valor) => {
+      dispatch(post_delete_modal_show(valor))
+    },
+    loadPostDeleteModal: (postId) => {
+      dispatch(load_post_delete_modal(postId))
+    },
     loadPostComments: () =>
       api.getPostComments(ownProps.postId).then( (comments) => {
         dispatch(load_comments(ownProps.postId, comments))
@@ -91,4 +121,4 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetailView)

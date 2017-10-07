@@ -141,7 +141,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     addNewPost: (formValues) => {
       api.addPost(formValues).then(() => {
         dispatch(add_post(formValues))
-        api.getAllPosts().then( (posts) => {
+      api.getAllPosts().then( (posts) => {
           ownProps.history.push('/')
         })
       })

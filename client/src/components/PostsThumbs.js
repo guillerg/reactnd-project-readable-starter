@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { load_comments, post_delete_modal_show, load_post_delete_modal } from '../actions'
 import * as api from '../util/api'
-import VoteScore from './VoteScore'
+import VotePost from './VotePost'
 import DeletePost from './DeletePost'
 
 
@@ -23,7 +23,7 @@ class PostsThumbs extends Component {
 		return (
       <div className="box">
           <div className="media-left">
-              <VoteScore post={post} />
+              <VotePost post={post} />
           </div>
           <div >
             <div >

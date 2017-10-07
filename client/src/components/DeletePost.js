@@ -8,7 +8,7 @@ class DeletePost extends Component {
 
 	render() {
 
-    const { deletePostModal, showDeleteModal, deletePost } = this.props
+    const { showDeleteModal, deletePost, deletePostModal } = this.props
 
 		return (
         <Modal
