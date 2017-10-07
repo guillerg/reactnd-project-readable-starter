@@ -39,8 +39,8 @@ render() {
         <div className="select right">
           <select value={sortMethod}
             onChange={ (event) => { update_sorting(event.target.value) } }>
-            <option value="score">Top Score</option>
-            <option value="date">Most recent</option>
+            <option value="score">Score</option>
+            <option value="date">Date</option>
           </select>
         </div>
 
@@ -57,7 +57,7 @@ render() {
         <div className="container has-top-margin">
 					<Link to="/add">
             <span className="icon"><i className="fa fa-plus-square"></i></span>
-            &nbsp; Add new post
+            &nbsp; New post
           </Link>
         </div>
 
@@ -76,12 +76,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     update_sorting: (newSortMethod) => {
       dispatch(posts_sort(newSortMethod))
-    },
-		load_comments: () =>
-      api.getPostComments(ownProps.post.id).then( (comments) => {
-        dispatch(load_comments(ownProps.post.id, comments))
-      }
-    )
-  }
+    }
+	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)

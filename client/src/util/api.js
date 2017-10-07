@@ -24,8 +24,8 @@ export const getPost = (postId) =>
 
 export const votePost = (postId, value) => {
         const score = (value === 1) ? 'upVote' : 'downVote'
-
-        fetch(`${api}/posts/${postId}`, {
+        console.log(score)
+        return fetch(`${api}/posts/${postId}`, {
           method: 'POST',
           headers: {
             ...headers,

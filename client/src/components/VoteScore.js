@@ -3,22 +3,20 @@ import { connect } from 'react-redux'
 import { vote_post } from '../actions'
 import * as api from '../util/api'
 
-class Vote extends Component {
+class VoteScore extends Component {
 	render() {
 
-		const { postId, posts, vote_post } = this.props
-
-		const currentPost = (posts) ? posts.find((post) => (post.id === postId)) : ''
+		const { post, votePost } = this.props
 
 		return (
 			<div className="wrapper">
 				<div>
-					{currentPost.voteScore}
+					{post.voteScore}
 				</div>
-				<a className="button" onClick={() => vote_post(currentPost.voteScore,1)}>
+				<a className="button" onClick={() => votePost(post.voteScore,1)}>
 					<i className="fa fa-thumbs-o-up"></i>
 				</a>
-				<a className="button" onClick={() => vote_post(currentPost.voteScore,-1)}>
+				<a className="button" onClick={() => votePost(post.voteScore,-1)}>
 					<i className="fa fa-thumbs-o-down"></i>
 				</a>
 			</div>
@@ -27,18 +25,15 @@ class Vote extends Component {
 }
 
 function mapStateToProps(state, props) {
-  return {
-    posts: Object.keys(state.posts).map((key => state.posts[key]))
-  }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    vote_post: (Nvalue, diff) => {
-      api.votePost(ownProps.postId, diff)
-      dispatch(vote_post(ownProps.postId, Nvalue+diff))
+    votePost: (Nvalue, value) => {
+      api.votePost(ownProps.post.id, value)
+      dispatch(vote_post(ownProps.post.id, Nvalue+value))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Vote)
+export default connect(mapStateToProps, mapDispatchToProps)(VoteScore)

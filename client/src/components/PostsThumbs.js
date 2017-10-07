@@ -10,7 +10,7 @@ import DeletePost from './DeletePost'
 class PostsThumbs extends Component {
 
   componentWillMount() {
-      this.props.loadPostDeleteModal(this.props.postId);
+      this.props.loadComments(this.props.postId);
   }
 
 	render() {
@@ -23,7 +23,7 @@ class PostsThumbs extends Component {
 		return (
       <div className="box">
           <div className="media-left">
-              <VoteScore postId={post.id} />
+              <VoteScore post={post} />
           </div>
           <div >
             <div >
@@ -36,7 +36,9 @@ class PostsThumbs extends Component {
                 {post.timestamp}
                 </small>
                 <br />
-                <Link to={'/'+post.category+'/'+post.id} className="is-size-5">{post.title}</Link>
+                <Link to={'/'+post.category+'/'+post.id}>
+                  {post.title}
+                </Link>
               </p>
             </div>
               <div className="level-left">
@@ -54,7 +56,7 @@ class PostsThumbs extends Component {
           <div className="column">
             <div className="button is-small is-outlined"
               onClick={() => {
-                load_post_delete_modal(post.id)
+                loadPostDeleteModal(post.id)
                 showDeleteModal(true)
               }}>
               <span className="icon is-small"><i className="fa is-danger fa-trash-o"></i></span>
@@ -85,19 +87,17 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    loadPostDeleteModal: () =>
+    loadComments: () =>
       api.getPostComments(ownProps.post.id).then( (comments) => {
         dispatch(load_comments(ownProps.post.id, comments))
       }
     ),
     showDeleteModal: (bool) => {
           dispatch(post_delete_modal_show(bool))
-        },
-        setPostIdToDeleteModal: (postId) => {
+    },
+    loadPostDeleteModal: (postId) => {
           dispatch(load_post_delete_modal(postId))
-        }
-
-
+    }
   }
 }
 

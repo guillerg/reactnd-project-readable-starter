@@ -13,20 +13,20 @@ class DeletePost extends Component {
 		return (
         <Modal
           isOpen={deletePostModal.isActive}
-          onRequestClose={() => post_delete_modal_show(false)}
+          onRequestClose={() => showDeleteModal(false)}
         >
           <div className="container">
             <h1 className="title">
-              Please confirm action
+              Please confirm
             </h1>
             <br />
-            <div style={{marginRight:'12px'}}className="button" onClick={() => showDeleteModal(false)}>Cancel</div>
+            <div className="button" onClick={() => showDeleteModal(false)}>Cancel</div>
             <div className="button is-outlined is-danger"
                 onClick={() => {
                   deletePost(deletePostModal.postId)
                   showDeleteModal(false)
                 }} >
-              Yes, I want to delete the post
+              Delete
             </div>
           </div>
         </Modal>
@@ -47,7 +47,6 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     deletePost: (postDelete) => {
       api.deletePost(postDelete).then(() => dispatch(delete_post(postDelete)))
-        ownProps.history.push('/')
     }
   }
 }
