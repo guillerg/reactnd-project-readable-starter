@@ -25,6 +25,10 @@ class VotePost extends Component {
 }
 
 function mapStateToProps(state, props) {
+  return {
+    posts: Object.keys(state.posts)
+      .map((key) => state.posts[key])
+  }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -36,4 +40,4 @@ function mapDispatchToProps(dispatch, ownProps) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VotePost)
+export default connect(mapStateToProps,mapDispatchToProps)(VotePost)

@@ -77,7 +77,7 @@ export const editComment = (commentId, body, author) => {
 
   const comment = {
     body,
-    author,
+    author
   }
 
   return fetch(`${api}/comments/${commentId}`, {

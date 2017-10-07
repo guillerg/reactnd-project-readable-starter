@@ -10,7 +10,7 @@ import DeletePost from './DeletePost'
 class PostsThumbs extends Component {
 
   componentWillMount() {
-      this.props.loadComments(this.props.postId);
+      this.props.loadComments();
   }
 
 	render() {
@@ -50,7 +50,7 @@ class PostsThumbs extends Component {
                   <i className="fa fa-comment-o"></i>
                 </span>
                 &nbsp;
-                Comments: {(postComments.length)? postComments.length:0}
+                Comments: {(postComments && postComments.length)? postComments.length:0}
               </div>
           </div>
           <div className="column">

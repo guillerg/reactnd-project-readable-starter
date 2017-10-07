@@ -14,6 +14,7 @@ class DeletePost extends Component {
         <Modal
           isOpen={deletePostModal.isActive}
           onRequestClose={() => showDeleteModal(false)}
+					contentLabel='modal post delete'
         >
           <div className="container">
             <h1 className="title">

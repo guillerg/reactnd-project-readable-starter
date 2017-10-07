@@ -13,7 +13,6 @@ class FormPost extends Component {
     controlEditPostForm('body', post.body)
     controlEditPostForm('author', post.author)
     controlEditPostForm('category', post.category)
-    //controlEditPostForm('showNotification', false)
   }
 
   handleChange = (event) => {

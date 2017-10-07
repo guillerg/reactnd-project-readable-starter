@@ -34,8 +34,6 @@ class CommentView extends Component {
 
     const { comment, editCommentForm, controlEditCommentForm } = this.props
 
-    const { deleteComment, editComment } = this.props
-
 		return (
 
       <section className="content">
@@ -53,15 +51,9 @@ class CommentView extends Component {
               &nbsp;
 
               <span>
-                <div onClick={deleteComment}
-                  className="button is-small is-danger is-outlined">
-                  Delete
-                </div>
-                &nbsp;
-                <div onClick={editComment}
-                  className="button is-small is-info is-outlined">
-                  Edit
-                </div>
+
+
+
               </span>
 
               <br />
@@ -104,7 +96,7 @@ class CommentView extends Component {
 
 function mapStateToProps(state) {
   return {
-    editCommentForm: state.editCommentForm,
+    editCommentForm: state.editCommentForm
   }
 }
 function mapDispatchToProps(dispatch, ownProps) {
@@ -122,18 +114,6 @@ function mapDispatchToProps(dispatch, ownProps) {
           dispatch(edit_comment_form('id', 0))
         }
         )
-    },
-    deleteComment: () => {
-      api.deleteComment(ownProps.comment.id).then(() => {
-        api.getPostComments(ownProps.comment.parentId).then( (comments) => {
-          dispatch(load_comments(ownProps.comment.parentId, comments))
-        })
-      })
-    },
-    EditingComment: () => {
-      dispatch(edit_comment_form('id', ownProps.comment.id))
-      dispatch(edit_comment_form('commentAuthor', ownProps.comment.author))
-      dispatch(edit_comment_form('commentBody', ownProps.comment.body))
     }
   }
 }
