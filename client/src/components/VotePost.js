@@ -10,9 +10,9 @@ class VotePost extends Component {
 
 		return (
 			<div className="wrapper">
-				<div>
+
 					{post.voteScore}
-				</div>
+					&nbsp;&nbsp;
 				<a className="button" onClick={() => votePost(post.voteScore,1)}>
 					<i className="fa fa-thumbs-o-up"></i>
 				</a>
@@ -26,8 +26,7 @@ class VotePost extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    posts: Object.keys(state.posts)
-      .map((key) => state.posts[key])
+    posts: Object.keys(state.posts).map((key) => state.posts[key])
   }
 }
 

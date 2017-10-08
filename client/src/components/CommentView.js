@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { edit_comment_form, edit_comment, load_comments} from '../actions'
+import { edit_comment, load_comments, edit_comment_form} from '../actions'
 import VoteComment from './VoteComment';
 import * as api from '../util/api'
 
@@ -13,7 +13,7 @@ class CommentView extends Component {
   handleSubmit() {
 
     if (this.props.editCommentForm.commentAuthor &&
-        this.props.editCommentForm.commentAuthor !== '' &
+        this.props.editCommentForm.commentAuthor !== '' &&
         this.props.editCommentForm.commentBody &&
         this.props.editCommentForm.commentBody !== '')
     {
@@ -22,7 +22,7 @@ class CommentView extends Component {
       this.props.editCommentForm.commentBody,
       this.props.editCommentForm.commentAuthor)
     } else {
-      console.log('Comment form error')
+      console.log('Comment edit form error')
     }
   }
 
@@ -33,6 +33,7 @@ class CommentView extends Component {
 	render() {
 
     const { comment, editCommentForm, controlEditCommentForm } = this.props
+    const { deleteComment, startEditingThisComment } = this.props
 
 		return (
 
@@ -47,12 +48,18 @@ class CommentView extends Component {
             <div>
               <strong>{comment.author}</strong>
               &nbsp;
-              <small>{comment.timestamp}</small>
+              <small>comment.timestamp</small>
               &nbsp;
 
               <span>
 
-
+                <div onClick={deleteComment} className="button is-small is-danger is-outlined">
+                          delete
+                </div>
+                        &nbsp;
+                <div onClick={startEditingThisComment} className="button is-small is-info is-outlined">
+                          edit
+                </div>
 
               </span>
 
@@ -82,7 +89,7 @@ class CommentView extends Component {
                 &nbsp;
                 <div
                   className="button is-small"
-                  onClick={() => {editCommentForm('id', 0)}}>
+                  onClick={() => {controlEditCommentForm('id', 0)}}>
                   Cancel
                 </div>
               </div>
@@ -114,6 +121,18 @@ function mapDispatchToProps(dispatch, ownProps) {
           dispatch(edit_comment_form('id', 0))
         }
         )
+    },
+    deleteComment: () => {
+      api.deleteComment(ownProps.comment.id).then(() => {
+        api.getPostComments(ownProps.comment.parentId).then( (comments) => {
+          dispatch(load_comments(ownProps.comment.parentId, comments))
+        })
+      })
+    },
+    startEditingThisComment: () => {
+      dispatch(edit_comment_form('id', ownProps.comment.id))
+      dispatch(edit_comment_form('commentAuthor', ownProps.comment.author))
+      dispatch(edit_comment_form('commentBody', ownProps.comment.body))
     }
   }
 }

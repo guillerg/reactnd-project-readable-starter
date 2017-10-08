@@ -42,7 +42,6 @@ class App extends Component {
           <Route path='/:category/:postId' render={ ({ match }) => (
             <PostDetailView
               postId={match.params.postId}
-              categoryUrl={match.params.category}
               history={this.props.history} />
             )}/>
           <Route path='/post/:query' render={({ match }) => (

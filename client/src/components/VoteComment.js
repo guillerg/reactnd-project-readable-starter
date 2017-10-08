@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { load_comments } from '../actions'
+import { vote_comment } from '../actions'
 import * as api from '../util/api'
 
 class VoteComment extends Component {
@@ -33,13 +33,16 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    voteComment: (newValue, value) => {
-      api.voteComment(ownProps.comment.id, value).then(() => {
-        api.getPostComments(ownProps.comment.parentId).then( (comments) => {
-          dispatch(load_comments(ownProps.comment.parentId, comments))
-        })
-      })
+	return {
+    voteComment: (newValue, diff) => {
+      api.voteComment(ownProps.comment.id, diff)
+      dispatch(
+        vote_comment(
+          ownProps.comment.id,
+          ownProps.comment.parentId,
+          newValue + diff
+        )
+      )
     }
   }
 }

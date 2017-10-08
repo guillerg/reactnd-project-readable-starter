@@ -11,9 +11,6 @@ export default class RootView extends Component {
       return (
 
         <div id="wrapper">
-          <div className="container">
-            <h3>Categories</h3>
-            <div className="container">
               <div className="columns">
                 { categories && categories.map( (category, index) => {
                    const postCount = posts.filter( (post) => (post.category === category.path)).length;
@@ -29,15 +26,16 @@ export default class RootView extends Component {
                 }
               ) }
             </div>
-          </div>
-        </div>
+            <div>
+    					<Link to="/add">
+                <span className="icon"><i className="fa fa-plus-square"></i></span>
+                &nbsp; New post
+              </Link>
+            </div>
 
-        <section>
-        <div className="wrapper" style={{marginTop:'2em'}}>
+        <div className="box" style={{marginTop:'2em'}}>
           <PostList posts={posts}/>
         </div>
-      </section>
-
 
       </div>
       )

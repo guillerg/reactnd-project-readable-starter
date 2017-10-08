@@ -5,6 +5,7 @@ import { load_comments, post_delete_modal_show, load_post_delete_modal } from '.
 import * as api from '../util/api'
 import VotePost from './VotePost'
 import DeletePost from './DeletePost'
+import * as helper from '../util/helper'
 
 
 class PostsThumbs extends Component {
@@ -22,26 +23,24 @@ class PostsThumbs extends Component {
 
 		return (
       <div className="box">
-          <div className="media-left">
-              <VotePost post={post} />
-          </div>
-          <div >
-            <div >
+          <div>
+            <div>
               <p>
+                <Link to={'/'+post.category+'/'+post.id}>
+                  {post.title}
+                </Link>
+                <br />
                 <strong>
                   {post.author}
                 </strong>
                 &nbsp;
                 <small>
-                {post.timestamp}
+                {helper.timeConverter(post.timestamp)}
                 </small>
-                <br />
-                <Link to={'/'+post.category+'/'+post.id}>
-                  {post.title}
-                </Link>
+
               </p>
             </div>
-              <div className="level-left">
+              <div >
                 <Link to={'/category/'+post.category}>
                   {post.category}
                 </Link>
@@ -53,6 +52,9 @@ class PostsThumbs extends Component {
                 Comments: {(postComments && postComments.length)? postComments.length:0}
               </div>
           </div>
+          <div>
+              <VotePost post={post} />
+          </div>
           <div className="column">
             <div className="button is-small is-outlined"
               onClick={() => {
@@ -63,14 +65,14 @@ class PostsThumbs extends Component {
                 &nbsp;
                 delete
               </div>
-          </div>
-          <br />
+              &nbsp;&nbsp;
             <Link to={'/edit/'+post.id}
               className="button  is-small is-info is-outlined">
                         <span className="icon is-small"><i className="fa fa-edit"></i></span>
                         &nbsp;
                         edit
             </Link>
+                      </div>
             <DeletePost deletePostModal={deletePostModal} history={history} />
       </div>
 
