@@ -19,7 +19,7 @@ class AddComment extends Component {
     if (this.props.newCommentData.commentAuthor &&
         this.props.newCommentData.commentAuthor !== '' &&
         this.props.newCommentData.newComment &&
-        this.props.newCommentData.newComment != '')
+        this.props.newCommentData.newComment !== '')
     {
       this.props.newCommentData.id = '_'+ Math.random().toString(36).substr(2, 9)
       this.props.newCommentData.timestamp = Date.now()
@@ -36,7 +36,7 @@ class AddComment extends Component {
 
 	render() {
 
-    const { newCommentData, addCommentControl } = this.props
+
 		return (
       <div className="wrapper">
         <h4>

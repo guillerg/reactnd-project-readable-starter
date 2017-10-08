@@ -24,7 +24,7 @@ class FormPost extends Component {
     if (this.fieldsAreValid()) {
       this.props.editPost(this.props.editPostForm)
     } else {
-      this.props.controlEditPostForm('showNotification', true)
+      console.log('Error in post')
     }
     event.preventDefault()
   }
@@ -42,13 +42,13 @@ class FormPost extends Component {
 
 	render() {
 
-    const {post, categories, editPostForm } = this.props
+    const {post, categories } = this.props
 
 		return (
-      <div className="container has-top-margin has-bottom-margin">
-        <div className="title">
+      <div>
+        <h1 className="title">
           Edit this post: <i>{post.title}</i>
-        </div>
+        </h1>
 
         <div className="columns">
           <div className="column is-half">
@@ -70,7 +70,7 @@ class FormPost extends Component {
 
               <div className="field">
                 <label className="label">Username</label>
-                <div className="control has-icons-left has-icons-right">
+                <div className="control has-icons-left">
                   <input
                     className="input"
                     type="text"
@@ -82,7 +82,6 @@ class FormPost extends Component {
                     <i className="fa fa-user"></i>
                   </span>
                 </div>
-                <p className="usernameMessageError help is-success is-hidden">This username is not valid</p>
               </div>
 
               <div className="field">
@@ -110,21 +109,13 @@ class FormPost extends Component {
                 <label className="label">Message</label>
                 <div className="control">
                   <textarea
-                    name="message"
+                    name="body"
                     onChange={(event) => this.handleChange(event)}
                     className="textarea"
                     defaultValue={post.body}
                     placeholder="Your message"></textarea>
                 </div>
               </div>
-
-              { //editPostForm.showNotification &&
-                //<div className="container notification is-danger">
-                //  <button className="delete" onClick={() => controlEditPostForm('showNotification', false)}></button>
-                //  <strong>Oops. Something is not right.</strong><br />
-                //  Please fill all the fields in this form, and select a category.
-                //</div>
-              }
 
               <div className="field is-grouped">
                 <div className="control">

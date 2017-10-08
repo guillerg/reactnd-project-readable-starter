@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { edit_comment, load_comments, edit_comment_form} from '../actions'
 import VoteComment from './VoteComment';
 import * as api from '../util/api'
+import * as helper from '../util/helper'
 
 class CommentView extends Component {
 
@@ -40,17 +41,20 @@ class CommentView extends Component {
       <section className="content">
         <div className="column">
 
-          <div className="column" style={{maxWidth: '115px'}}>
-            <VoteComment voteScore={comment.voteScore} comment={comment} />
-          </div>
           <div className="column">
             { (editCommentForm.id !== comment.id) &&
             <div>
+              <div className="content">
+                {comment.body}
+              </div>
+
               <strong>{comment.author}</strong>
               &nbsp;
-              <small>comment.timestamp</small>
+              <small>{helper.timeConverter(comment.timestamp)}</small>
               &nbsp;
-
+              <div className="column" style={{maxWidth: '115px'}}>
+                <VoteComment voteScore={comment.voteScore} comment={comment} />
+              </div>
               <span>
 
                 <div onClick={deleteComment} className="button is-small is-danger is-outlined">
@@ -62,11 +66,6 @@ class CommentView extends Component {
                 </div>
 
               </span>
-
-              <br />
-              <div className="content">
-                {comment.body}
-              </div>
             </div>
             }
 

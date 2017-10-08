@@ -35,7 +35,7 @@ class AddPost extends Component {
 
 	render() {
 
-    const { categories, newPostForm, controlNewPostForm } = this.props
+    const { categories  } = this.props
 
 		return (
 		<div>

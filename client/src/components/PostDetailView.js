@@ -13,7 +13,7 @@ class PostDetailView extends Component {
 
 	render() {
 
-    const {posts, comments, postId, history, categoryUrl } = this.props
+    const {posts, comments, postId, history } = this.props
 
     const currentPost = posts ? posts.find((post) => (post.id === postId)) : false
 

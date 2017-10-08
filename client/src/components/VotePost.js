@@ -10,7 +10,6 @@ class VotePost extends Component {
 
 		return (
 			<div className="wrapper">
-
 					{post.voteScore}
 					&nbsp;&nbsp;
 				<a className="button" onClick={() => votePost(post.voteScore,1)}>

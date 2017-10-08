@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { posts_sort, load_comments } from '../actions'
+import { posts_sort } from '../actions'
 import { Link } from 'react-router-dom'
 import PostsThumbs from './PostsThumbs'
-import * as api from '../util/api'
-import VotePost from './VotePost'
 
 class PostList extends Component {
 
@@ -14,7 +12,7 @@ render() {
 	const { posts, sortMethod, update_sorting, history } = this.props
 
 	const sortByScore = (a, b) => {
-			(a.voteScore > b.voteScore)
+			if (a.voteScore > b.voteScore)
 				return -1;
 			if (a.voteScore < b.voteScore)
 				return 1;

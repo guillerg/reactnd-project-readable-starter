@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { post_delete_modal_show, load_post_delete_modal } from '../actions'
-import * as api from '../util/api'
 import VotePost from './VotePost'
 import DeletePost from './DeletePost'
 import CommentView from './CommentView'
 import { Link } from 'react-router-dom'
 import AddComment from './AddComment'
+import * as helper from '../util/helper'
 
 class PostDetail extends Component {
 
@@ -16,19 +16,21 @@ class PostDetail extends Component {
 			showDeleteModal, deletePostModal,loadPostDeleteModal } = this.props
 
 		return (
-			<div>
+			<div className="column is-half">
           { post &&
             <div className="container">
-              <h1>
+              <h3 className="title">
                 {post.title}
-              </h1>
-              <p>
+              </h3>
+              <div className="box">
+								<article class="media">
                 {post.body}
-              </p>
+							</article>
+              </div>
               <p>
                 posted by <strong>{post.author}</strong>,
                 &nbsp;
-                {post.timestamp}
+                {helper.timeConverter(post.timestamp)}
                 <br />
                 category: <Link to={'/category/' + post.category}>{post.category}</Link>
               </p>
@@ -45,7 +47,8 @@ class PostDetail extends Component {
                 className="is-info is-outlined is-small button">
                 Edit
               </Link>
-	
+							<br />
+							<br />
               { comments && comments.length > 0 &&
                 <div className='box'>
                   <div>

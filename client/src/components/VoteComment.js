@@ -14,10 +14,12 @@ class VoteComment extends Component {
 				<div>
 					{comment.voteScore}
 				</div>
-				<a className="button is-success is-outlined" onClick={() => voteComment(comment.voteScore, 1)}>
+				<a className="button is-outlined"
+					onClick={() => voteComment(comment.voteScore, 1)}>
 					<i className="fa fa-thumbs-o-up"></i>
 				</a>
-				<a className="button is-danger is-outlined" onClick={() => voteComment(comment.voteScore, -1)}>
+				<a className="button is-outlined"
+					onClick={() => voteComment(comment.voteScore, -1)}>
 					<i className="fa fa-thumbs-o-down"></i>
 				</a>
 			</div>
@@ -34,15 +36,12 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, ownProps) {
 	return {
-    voteComment: (newValue, diff) => {
-      api.voteComment(ownProps.comment.id, diff)
+    voteComment: (newValue, value) => {
+      api.voteComment(ownProps.comment.id, value)
       dispatch(
-        vote_comment(
-          ownProps.comment.id,
-          ownProps.comment.parentId,
-          newValue + diff
-        )
+        vote_comment(ownProps.comment.id, ownProps.comment.parentId,newValue + value)
       )
+		
     }
   }
 }

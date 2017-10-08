@@ -24,7 +24,8 @@ export const getPost = (postId) =>
 
 export const votePost = (postId, value) => {
         const score = (value === 1) ? 'upVote' : 'downVote'
-
+        console.log(postId)
+        console.log(score)
         return fetch(`${api}/posts/${postId}`, {
           method: 'POST',
           headers: {
@@ -32,7 +33,7 @@ export const votePost = (postId, value) => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ score })
-        }).then(res => console.log(res.json()))
+        }).then(res => res)
 
 }
 
