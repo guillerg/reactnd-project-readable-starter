@@ -6,9 +6,6 @@ import * as api from '../util/api'
 
 class AddComment extends Component {
 
-  emptyInputField() {
-    this.textInput.value = ''
-  }
 
   handleChange = (event) => {
     this.props.addCommentControl(event.target.name, event.target.value)
@@ -16,14 +13,14 @@ class AddComment extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    if (this.props.newCommentData.commentAuthor &&
-        this.props.newCommentData.commentAuthor !== '' &&
-        this.props.newCommentData.newComment &&
-        this.props.newCommentData.newComment !== '')
+    if (this.props.addCommentData.commentAuthor &&
+        this.props.addCommentData.commentAuthor !== '' &&
+        this.props.addCommentData.newComment &&
+        this.props.addCommentData.newComment !== '')
     {
-      this.props.newCommentData.id = '_'+ Math.random().toString(36).substr(2, 9)
-      this.props.newCommentData.timestamp = Date.now()
-      this.props.addComment(this.props.newCommentData)
+      this.props.addCommentData.id = '_'+ Math.random().toString(36).substr(2, 9)
+      this.props.addCommentData.timestamp = Date.now()
+      this.props.addComment(this.props.addCommentData)
       this.emptyInputField()
       this.props.addCommentControl('newComment', '')
     } else {
@@ -32,6 +29,9 @@ class AddComment extends Component {
     event.preventDefault()
   }
 
+  emptyInputField() {
+    this.textInput.value = ''
+  }
 
 
 	render() {
@@ -63,7 +63,7 @@ class AddComment extends Component {
 
 function mapStateToProps(state) {
   return {
-    newCommentData: state.newCommentData,
+    addCommentData: state.addCommentData,
   }
 }
 

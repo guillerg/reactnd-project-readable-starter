@@ -64,7 +64,7 @@ export const comments = (state = {}, action) => {
   }
 }
 
-export const newCommentData = (state = {}, action) => {
+export const addCommentData = (state = {}, action) => {
   switch (action.type) {
     case ADD_COMMENT_CONTROL:
       const { name, value } = action

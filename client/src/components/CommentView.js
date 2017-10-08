@@ -34,7 +34,7 @@ class CommentView extends Component {
 	render() {
 
     const { comment, editCommentForm, controlEditCommentForm } = this.props
-    const { deleteComment, startEditingThisComment } = this.props
+    const { deleteComment, updateComment } = this.props
 
 		return (
 
@@ -61,7 +61,7 @@ class CommentView extends Component {
                           delete
                 </div>
                         &nbsp;
-                <div onClick={startEditingThisComment} className="button is-small is-info is-outlined">
+                <div onClick={updateComment} className="button is-small is-info is-outlined">
                           edit
                 </div>
 
@@ -128,7 +128,7 @@ function mapDispatchToProps(dispatch, ownProps) {
         })
       })
     },
-    startEditingThisComment: () => {
+    updateComment: () => {
       dispatch(edit_comment_form('id', ownProps.comment.id))
       dispatch(edit_comment_form('commentAuthor', ownProps.comment.author))
       dispatch(edit_comment_form('commentBody', ownProps.comment.body))
