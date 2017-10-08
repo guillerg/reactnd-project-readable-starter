@@ -48,6 +48,7 @@ function mapDispatchToProps(dispatch, ownProps) {
     },
     deletePost: (postDelete) => {
       api.deletePost(postDelete).then(() => dispatch(delete_post(postDelete)))
+			ownProps.history.push('/')
     }
   }
 }

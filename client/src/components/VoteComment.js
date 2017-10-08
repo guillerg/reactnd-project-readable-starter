@@ -41,7 +41,6 @@ function mapDispatchToProps(dispatch, ownProps) {
       dispatch(
         vote_comment(ownProps.comment.id, ownProps.comment.parentId,newValue + value)
       )
-		
     }
   }
 }

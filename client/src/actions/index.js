@@ -93,10 +93,10 @@ export function load_post_delete_modal(postId) {
   }
 }
 
-export function delete_post (id) {
+export function delete_post (postId) {
   return {
     type: DELETE_POST,
-    id
+    postId
   }
 }
 

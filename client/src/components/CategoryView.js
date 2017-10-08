@@ -7,7 +7,6 @@ export default class CategoryView extends Component {
       if (categories)
         return {
           data: categories.find((category) => (category.path === this.props.categoryPath))
-          //index: categories.findIndex((category) => (category.path === this.props.categoryPath))
         }
       else return null
     }
@@ -22,18 +21,14 @@ export default class CategoryView extends Component {
         <div>
          { category && (
            <div >
-              <section className=''>
-                <div className="hero-body">
-                  <div className="container">
+                <div>
+                  <div className="title">
                     <h1 >
-                      {category.data.name}
+                      Category : {category.data.name}
                     </h1>
-                    <h2 className="subtitle">
-                      {category.data.name}
-                    </h2>
+                    <br />
                   </div>
                 </div>
-              </section>
               <PostList posts={categoryPosts}/>
             </div>
           )

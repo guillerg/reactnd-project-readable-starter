@@ -44,9 +44,7 @@ class App extends Component {
               postId={match.params.postId}
               history={this.props.history} />
             )}/>
-          <Route path='/post/:query' render={({ match }) => (
-            <PostDetailView postId={match.params.query} history={this.props.history} />
-          )}/>
+
            <Route exact path='/add' component={AddPost} />
 
           <Route component={NoMatch}/>
