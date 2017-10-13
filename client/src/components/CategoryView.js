@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PostList from './PostList'
+import Menu from './Menu'
 
 export default class CategoryView extends Component {
 
@@ -19,6 +20,7 @@ export default class CategoryView extends Component {
 
       return (
         <div>
+          <Menu categories={categories}/>
          { category && (
            <div >
                 <div>

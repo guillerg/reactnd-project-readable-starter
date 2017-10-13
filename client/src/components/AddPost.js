@@ -127,10 +127,10 @@ class AddPost extends Component {
 	}
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({categories,addPostForm}) {
   return {
-    categories: state.categories,
-    addPostForm: state.addPostForm
+    categories: categories,
+    addPostForm: addPostForm
   }
 }
 

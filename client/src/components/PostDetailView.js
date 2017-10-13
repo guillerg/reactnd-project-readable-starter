@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { load_comments } from '../actions'
 import * as api from '../util/api'
 import PostDetail from './PostDetail'
+import NoPost from './NoPost'
+import Menu from './Menu'
 
 
 class PostDetailView extends Component {
@@ -13,7 +15,7 @@ class PostDetailView extends Component {
 
 	render() {
 
-    const {posts, comments, postId, history } = this.props
+    const {categories, posts, comments, postId, history } = this.props
 
     const currentPost = posts ? posts.find((post) => (post.id === postId)) : false
 
@@ -21,7 +23,14 @@ class PostDetailView extends Component {
 
 		return (
 			<div>
+        <Menu categories={categories}/>
+        {
+          currentPost && !currentPost.deleted
+          ?
           <PostDetail post={currentPost} comments={postComments} history={history} />
+          :
+          <NoPost />
+      }
 			</div>
 		)
 	}
