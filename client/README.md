@@ -2,9 +2,8 @@
 
 ## Installation
 
-run `git clone https://github.com/guillerg/reactnd-project-readable-starter` to clone project
+1. run `git clone https://github.com/guillerg/reactnd-project-readable-starter` to clone project
 2. `cd reactnd-project-readable-starter/client` and run `npm install`
-3. `npm run start` in reactnd-project-readable-starter to start backend server on port 5001
-4. `npm start` should open a browser to http://localhost:3000/
+3. `npm start` should open a browser to http://localhost:3000/
 
 Some code snippets and ideas inspired from Udacity's slack channels for this course
