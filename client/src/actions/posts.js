@@ -1,3 +1,5 @@
+import * as api from '../util/api'
+
 export const LOAD_POSTS = 'LOAD_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
@@ -14,6 +16,12 @@ export function load_posts(posts) {
     type: LOAD_POSTS,
     posts
   }
+}
+
+export const getAllPosts = () => dispatch => {
+  api.getAllPosts().then((posts)=>{
+    dispatch(load_posts(posts))
+  })
 }
 
 export function vote_post(postId, score){

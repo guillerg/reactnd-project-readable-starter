@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { load_categories, load_posts } from '../actions'
+import { getAllCategories, getAllPosts } from '../actions'
 import * as api from '../util/api'
 import { Route, Switch } from 'react-router-dom'
 import { withRouter } from 'react-router'
@@ -68,15 +68,11 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getAllCategories: () =>
-      api.getAllCategories().then( (categories) => {
-        dispatch(load_categories(categories))
-      }
+    getAllCategories: () => (
+      dispatch(getAllCategories())
     ),
-    getAllPosts: () =>
-      api.getAllPosts().then( (posts) => {
-        dispatch(load_posts(posts))
-      }
+    getAllPosts: () =>(
+      dispatch(getAllPosts())
     )
   }
 }
